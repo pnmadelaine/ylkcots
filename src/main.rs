@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 fn main() {
     let mut lines = std::io::stdin().lines();
     let _ = lines.next();
@@ -12,23 +10,23 @@ fn main() {
         .collect();
     let n = a.len();
     let mut res = vec![None; n];
-    let mut set = HashSet::new();
-    set.insert(0);
+    let mut next = Vec::new();
+    next.push(0);
     for v in 0..n {
-        let mut new_set = HashSet::new();
-        for i in set {
+        let mut new_next = Vec::new();
+        for i in next {
             if res[i].is_none() {
                 res[i] = Some(v);
-                new_set.insert(a[i]);
+                new_next.push(a[i]);
                 if i > 0 {
-                    new_set.insert(i - 1);
+                    new_next.push(i - 1);
                 }
                 if i < n - 1 {
-                    new_set.insert(i + 1);
+                    new_next.push(i + 1);
                 }
             }
         }
-        set = new_set;
+        next = new_next;
     }
     for m in res {
         print!("{} ", m.unwrap());
